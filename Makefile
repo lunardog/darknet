@@ -74,6 +74,9 @@ backup:
 	mkdir -p backup
 results:
 	mkdir -p results
+python:
+	python setup.py build
+	python setup.py install
 
 .PHONY: clean
 
