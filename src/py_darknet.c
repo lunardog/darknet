@@ -25,18 +25,26 @@ static PyObject *
 _parse_network_cfg(PyObject* self, PyObject* args)
 {
     char* filename;
-
     if (!PyArg_ParseTuple(args, "s", &filename))
         return NULL;
-
     GETSTATE(self)->net = parse_network_cfg(filename);
+    Py_RETURN_NONE;
+}
 
+static PyObject *
+_load_weights(PyObject* self, PyObject* args)
+{
+    char* filename;
+    if (!PyArg_ParseTuple(args, "s", &filename))
+        return NULL;
+    load_weights(&GETSTATE(self)->net, filename);
     Py_RETURN_NONE;
 }
 
 static PyMethodDef darknet_methods[] = {
     {"error_out", (PyCFunction)error_out, METH_NOARGS, NULL},
     {"parse_network_cfg", _parse_network_cfg, METH_VARARGS, "Parse network cfg"},
+    {"load_weights", _load_weights, METH_VARARGS, "Load weights"},
     {NULL, NULL}
 };
 
