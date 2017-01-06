@@ -4,7 +4,6 @@
 
 struct module_state {
     PyObject *error;
-    int test;
     network net;
 };
 
@@ -23,23 +22,21 @@ error_out(PyObject *m) {
 }
 
 static PyObject *
-say_hello(PyObject* self, PyObject* args)
+_parse_network_cfg(PyObject* self, PyObject* args)
 {
-    const char* name;
+    char* filename;
 
-    if (!PyArg_ParseTuple(args, "s", &name))
+    if (!PyArg_ParseTuple(args, "s", &filename))
         return NULL;
 
-    GETSTATE(self)->net = parse_network_cfg(name);
-
-    printf("Hello %s! %d\n", name, GETSTATE(self)->test);
+    GETSTATE(self)->net = parse_network_cfg(filename);
 
     Py_RETURN_NONE;
 }
 
 static PyMethodDef darknet_methods[] = {
     {"error_out", (PyCFunction)error_out, METH_NOARGS, NULL},
-    {"say_hello", say_hello, METH_VARARGS, "Greet somebody."},
+    {"parse_network_cfg", _parse_network_cfg, METH_VARARGS, "Parse network cfg"},
     {NULL, NULL}
 };
 

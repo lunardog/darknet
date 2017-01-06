@@ -1,3 +1,3 @@
 import darknet
 
-darknet.say_hello("cfg/yolo.cfg")
+darknet.parse_network_cfg("cfg/yolo.cfg")
