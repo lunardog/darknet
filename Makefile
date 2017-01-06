@@ -2,6 +2,7 @@ GPU=0
 CUDNN=0
 OPENCV=0
 DEBUG=0
+PYTHON=0
 
 ARCH= -gencode arch=compute_20,code=[sm_20,sm_21] \
       -gencode arch=compute_30,code=sm_30 \
@@ -54,6 +55,11 @@ LDFLAGS+= -lstdc++
 OBJ+=convolutional_kernels.o activation_kernels.o im2col_kernels.o col2im_kernels.o blas_kernels.o crop_layer_kernels.o dropout_layer_kernels.o maxpool_layer_kernels.o network_kernels.o avgpool_layer_kernels.o
 endif
 
+ifeq ($(PYTHON), 1)
+OBJ+=py_darknet.o
+EXEC+=darknet.so
+endif
+
 OBJS = $(addprefix $(OBJDIR), $(OBJ))
 DEPS = $(wildcard src/*.h) Makefile
 
@@ -75,8 +81,10 @@ backup:
 results:
 	mkdir -p results
 python:
-	python setup.py build
-	python setup.py install
+	python setup.py clean -v -a
+	python setup.py build -v 
+	python setup.py install -v
+	python pytest.py
 
 .PHONY: clean
 
