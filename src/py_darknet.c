@@ -21,8 +21,7 @@ error_out(PyObject *m) {
     return NULL;
 }
 
-static PyObject *
-_parse_network_cfg(PyObject* self, PyObject* args)
+static PyObject *_parse_network_cfg(PyObject* self, PyObject* args)
 {
     char* filename;
     if (!PyArg_ParseTuple(args, "s", &filename))
@@ -31,8 +30,7 @@ _parse_network_cfg(PyObject* self, PyObject* args)
     Py_RETURN_NONE;
 }
 
-static PyObject *
-_load_weights(PyObject* self, PyObject* args)
+static PyObject *_load_weights(PyObject* self, PyObject* args)
 {
     char* filename;
     if (!PyArg_ParseTuple(args, "s", &filename))
