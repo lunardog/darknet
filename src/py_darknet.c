@@ -21,8 +21,7 @@ error_out(PyObject *m) {
     return NULL;
 }
 
-static PyObject *_parse_network_cfg(PyObject* self, PyObject* args)
-{
+static PyObject *_parse_network_cfg(PyObject* self, PyObject* args) {
     char* filename;
     if (!PyArg_ParseTuple(args, "s", &filename))
         return NULL;
@@ -30,8 +29,7 @@ static PyObject *_parse_network_cfg(PyObject* self, PyObject* args)
     Py_RETURN_NONE;
 }
 
-static PyObject *_load_weights(PyObject* self, PyObject* args)
-{
+static PyObject *_load_weights(PyObject* self, PyObject* args) {
     char* filename;
     if (!PyArg_ParseTuple(args, "s", &filename))
         return NULL;
@@ -39,10 +37,15 @@ static PyObject *_load_weights(PyObject* self, PyObject* args)
     Py_RETURN_NONE;
 }
 
+static PyObject *_network_predict(PyObject* self, PyObject* args) {
+    
+}
+
 static PyMethodDef darknet_methods[] = {
     {"error_out", (PyCFunction)error_out, METH_NOARGS, NULL},
     {"parse_network_cfg", _parse_network_cfg, METH_VARARGS, "Parse network cfg"},
     {"load_weights", _load_weights, METH_VARARGS, "Load weights"},
+    {"network_predict", _network_predict, METH_VARARGS, "Network predict"},
     {NULL, NULL}
 };
 
